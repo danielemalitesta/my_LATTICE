@@ -122,7 +122,8 @@ class Trainer(object):
                     adj = self.compute_normalized_laplacian(adj, 0.5)
                     # feature propagation
                     propagated_features = torch.tensor(text_feats)
-                    for _ in range(args.prop_layers):
+                    for idx in range(args.prop_layers):
+                        print(f'Propagation layer: {idx + 1}')
                         propagated_features = matmul(adj, propagated_features)
                         propagated_features[non_masked_items] = torch.tensor(text_feats[non_masked_items])
                     text_feats[masked_items_text] = propagated_features[masked_items_text].detach().cpu().numpy()

@@ -205,9 +205,6 @@ class Trainer(object):
 
             del ua_embeddings, ia_embeddings, u_g_embeddings, neg_i_g_embeddings, pos_i_g_embeddings
 
-            if math.isnan(loss) == True:
-                print('ERROR: loss is nan.')
-
             perf_str = 'Epoch %d [%.1fs]: train==[%.5f=%.5f + %.5f]' % (
                 epoch, time() - t1, loss, mf_loss, emb_loss)
             training_time_list.append(time() - t1)

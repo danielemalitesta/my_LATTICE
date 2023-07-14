@@ -189,7 +189,8 @@ class Data(object):
             # neg_items += sample_neg_items_for_u(u, 3)
         return users, pos_items, neg_items
 
-
+    def get_R(self):
+        return self.R
 
     def print_statistics(self):
         print('n_users=%d, n_items=%d' % (self.n_users, self.n_items))

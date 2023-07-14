@@ -47,6 +47,8 @@ class Trainer(object):
         self.image_feat_dim = image_feats.shape[-1]
         self.text_feat_dim = text_feats.shape[-1]
 
+        self.ui_graph = data_config['R']
+
         if args.masked_items_image:
             masked_items_image = pd.read_csv(args.masked_items_image, sep='\t', header=None)[0].tolist()
         else:
@@ -298,7 +300,9 @@ if __name__ == '__main__':
     config['n_items'] = data_generator.n_items
 
     plain_adj, norm_adj, mean_adj = data_generator.get_adj_mat()
+    R = data_generator.get_R()
     config['norm_adj'] = norm_adj
+    config['R'] = R
 
     trainer = Trainer(data_config=config)
     trainer.train()

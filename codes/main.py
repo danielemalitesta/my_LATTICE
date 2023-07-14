@@ -97,10 +97,10 @@ class Trainer(object):
                     # normalize adjacency matrix
                     adj = self.compute_normalized_laplacian(adj, 0.5)
                     # feature propagation
-                    propagated_features = torch.tensor(image_feats)
+                    propagated_features = torch.tensor(image_feats).cuda()
                     for _ in range(args.prop_layers):
-                        propagated_features = matmul(adj, propagated_features)
-                        propagated_features[non_masked_items] = torch.tensor(image_feats[non_masked_items])
+                        propagated_features = matmul(adj.cuda(), propagated_features.cuda())
+                        propagated_features[non_masked_items] = torch.tensor(image_feats[non_masked_items].cuda()).cuda()
                     image_feats[masked_items_image] = propagated_features[masked_items_image].detach().cpu().numpy()
 
                     item_item = self.ui_graph.transpose().dot(self.ui_graph).toarray()

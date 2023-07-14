@@ -50,6 +50,7 @@ def parse_args():
     parser.add_argument('--test_flag', nargs='?', default='part',
                         help='Specify the test type from {part, full}, indicating whether the reference is done in mini-batch')
 
+    parser.add_argument('--missing_features', default=True, type=bool, help='')
     parser.add_argument('--strategy', default='zeros', type=str, help='')
     parser.add_argument('--masked_items_image', default='', type=str, help='')
     parser.add_argument('--masked_items_text', default='', type=str, help='')

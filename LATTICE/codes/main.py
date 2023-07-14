@@ -207,7 +207,7 @@ class Trainer(object):
 
             if math.isnan(loss) == True:
                 print('ERROR: loss is nan.')
-                sys.exit()
+                break
 
             perf_str = 'Epoch %d [%.1fs]: train==[%.5f=%.5f + %.5f]' % (
                 epoch, time() - t1, loss, mf_loss, emb_loss)

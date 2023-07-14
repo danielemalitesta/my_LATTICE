@@ -139,4 +139,3 @@ class LATTICE(nn.Module):
             return u_g_embeddings, i_g_embeddings
         elif args.cf_model == 'mf':
             return self.user_embedding.weight, self.item_id_embedding.weight + F.normalize(h, p=2, dim=1)
-

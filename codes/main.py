@@ -44,10 +44,10 @@ class Trainer(object):
         image_feats = np.load('../data/{}/image_feat.npy'.format(args.dataset))
         text_feats = np.load('../data/{}/text_feat.npy'.format(args.dataset))
 
-        self.image_feat_dim = image_feats.shape[-1]
-        self.text_feat_dim = text_feats.shape[-1]
-
         if args.missing_features:
+            self.image_feat_dim = image_feats.shape[-1]
+            self.text_feat_dim = text_feats.shape[-1]
+
             self.ui_graph = data_config['R']
 
             if args.masked_items_image:
@@ -131,7 +131,6 @@ class Trainer(object):
                     raise NotImplementedError('This aggregation has not been implemented yet!')
             else:
                 raise NotImplementedError('This strategy has not been implemented yet!')
-
 
         self.model = LATTICE(self.n_users, self.n_items, self.emb_dim, self.weight_size, self.mess_dropout, image_feats,
                              text_feats)

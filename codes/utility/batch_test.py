@@ -116,7 +116,7 @@ def test_torch(ua_embeddings, ia_embeddings, users_to_test, is_val, drop_flag=Fa
     if args.colab:
         pool = multiprocessing.Pool(16)
     else:
-        pool = multiprocessing.Pool(cores)
+        pool = multiprocessing.Pool(16)
 
     u_batch_size = BATCH_SIZE * 2
     i_batch_size = BATCH_SIZE

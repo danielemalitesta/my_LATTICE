@@ -98,7 +98,8 @@ class Trainer(object):
                     adj = self.compute_normalized_laplacian(adj, 0.5)
                     # feature propagation
                     propagated_features = torch.tensor(image_feats).cuda()
-                    for _ in range(args.prop_layers):
+                    for idx in range(args.prop_layers):
+                        print(f'Propagation layer: {idx + 1}')
                         propagated_features = matmul(adj.cuda(), propagated_features.cuda())
                         propagated_features[non_masked_items] = torch.tensor(image_feats[non_masked_items]).cuda()
                     image_feats[masked_items_image] = propagated_features[masked_items_image].detach().cpu().numpy()

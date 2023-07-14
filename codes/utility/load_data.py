@@ -148,6 +148,8 @@ class Data(object):
         print('already normalize adjacency matrix', time() - t2)
         return adj_mat.tocsr(), norm_adj_mat.tocsr(), mean_adj_mat.tocsr()
 
+    def get_R(self):
+        return self.R
 
     def sample(self):
         if self.batch_size <= self.n_users:

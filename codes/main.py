@@ -121,11 +121,11 @@ class Trainer(object):
                     # normalize adjacency matrix
                     adj = self.compute_normalized_laplacian(adj, 0.5)
                     # feature propagation
-                    propagated_features = torch.tensor(text_feats)
+                    propagated_features = torch.tensor(text_feats).cuda()
                     for idx in range(args.prop_layers):
                         print(f'Propagation layer: {idx + 1}')
-                        propagated_features = matmul(adj, propagated_features)
-                        propagated_features[non_masked_items] = torch.tensor(text_feats[non_masked_items])
+                        propagated_features = matmul(adj.cuda(), propagated_features.cuda())
+                        propagated_features[non_masked_items] = torch.tensor(text_feats[non_masked_items]).cuda()
                     text_feats[masked_items_text] = propagated_features[masked_items_text].detach().cpu().numpy()
                 elif args.feat_prop == 'rev':
                     pass

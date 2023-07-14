@@ -292,6 +292,12 @@ def set_seed(seed):
 
 
 if __name__ == '__main__':
+
+    if args.missing_features == 'True':
+        args.missing_features = True
+    else:
+        args.missing_features = False
+
     set_seed(args.seed)
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
 

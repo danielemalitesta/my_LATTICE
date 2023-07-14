@@ -59,21 +59,13 @@ class LATTICE(nn.Module):
         self.image_embedding = nn.Embedding.from_pretrained(torch.Tensor(image_feats), freeze=False)
         self.text_embedding = nn.Embedding.from_pretrained(torch.Tensor(text_feats), freeze=False)
 
-        if os.path.exists('../data/%s/%s-core/image_adj_%d.pt' % (args.dataset, args.core, args.topk)):
-            image_adj = torch.load('../data/%s/%s-core/image_adj_%d.pt' % (args.dataset, args.core, args.topk))
-        else:
-            image_adj = build_sim(self.image_embedding.weight.detach())
-            image_adj = build_knn_neighbourhood(image_adj, topk=args.topk)
-            image_adj = compute_normalized_laplacian(image_adj)
-            torch.save(image_adj, '../data/%s/%s-core/image_adj_%d.pt' % (args.dataset, args.core, args.topk))
+        image_adj = build_sim(self.image_embedding.weight.detach())
+        image_adj = build_knn_neighbourhood(image_adj, topk=args.topk)
+        image_adj = compute_normalized_laplacian(image_adj)
 
-        if os.path.exists('../data/%s/%s-core/text_adj_%d.pt' % (args.dataset, args.core, args.topk)):
-            text_adj = torch.load('../data/%s/%s-core/text_adj_%d.pt' % (args.dataset, args.core, args.topk))
-        else:
-            text_adj = build_sim(self.text_embedding.weight.detach())
-            text_adj = build_knn_neighbourhood(text_adj, topk=args.topk)
-            text_adj = compute_normalized_laplacian(text_adj)
-            torch.save(text_adj, '../data/%s/%s-core/text_adj_%d.pt' % (args.dataset, args.core, args.topk))
+        text_adj = build_sim(self.text_embedding.weight.detach())
+        text_adj = build_knn_neighbourhood(text_adj, topk=args.topk)
+        text_adj = compute_normalized_laplacian(text_adj)
 
         self.text_original_adj = text_adj.cuda()
         self.image_original_adj = image_adj.cuda()
